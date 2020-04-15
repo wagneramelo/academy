@@ -1,3 +1,15 @@
 
-<div id="clock" [ngStyle]="styleClock" (click)="runClock()"></div>
+<div id="clock" (click)="runClock()"></div>
 <p>{{counter}}</p>
+
+<form [formGroup]="exerciseForm" (ngSubmit)="addExercise()">
+    <label for="name">Exercise Name</label>
+    <input type="text" formControlName="name">
+    <label for="repetititons">Repetitions</label>
+    <input type="number" formControlName="repetitions">
+    <label for="repetititons">Weight</label>
+    <input type="number" formControlName="weight">
+    <button type="submit">Add Exercise</button>
+</form>
+
+<p *ngFor="let exercise of exerciseList">Exercise Name: {{exercise.name}} Exercise Repetitions: {{exercise.repetitions}} Exercise Weight: {{exercise.weight}}</p>

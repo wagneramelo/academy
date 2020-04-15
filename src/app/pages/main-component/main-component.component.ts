@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Exercise } from 'src/app/models/exercise';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-main-component',
@@ -9,27 +10,31 @@ import { Exercise } from 'src/app/models/exercise';
 export class MainComponentComponent implements OnInit {
   
   counter:number = 0;
-  names:Exercise[] = [];
-  
+  exerciseList:Exercise[] = [];
+  restTimeinSeconds:number = 60;
 
-  styleClock = {
-    
-  }
+  exerciseForm = new FormGroup({
+    name: new FormControl('',[Validators.required]),
+    repetitions: new FormControl('',[Validators.required,Validators.pattern('^[0-9]*$')]),
+    weight: new FormControl('',[Validators.required]),
+  })
+
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
   runClock = ()=>{
-
-    this.names.map(mape => console.log(mape));
-    
+    do{
     setInterval(()=>{
-      this.styleClock = {
-        "background-color" : "black"
-      }
-      this.counter++
+      this.counter++;
     },1000)
+    }while(this.counter < 60)
+  }
+
+  addExercise = () => {
+    this.exerciseList.push(this.exerciseForm.value);
   }
 
 }
