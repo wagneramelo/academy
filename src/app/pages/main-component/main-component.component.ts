@@ -29,7 +29,7 @@ export class MainComponentComponent implements OnInit {
 
   runClock = ()=>{
     if(this.exerciseList.length != 0){
-      this.exerciseList.forEach(async (exercise,index) => {
+      this.exerciseList.forEach((exercise,index) => {
         this.currentExercise = this.exerciseList[index].name
         var repetitions = exercise.repetitions;
         for(let i = 0; i<repetitions; i++){
