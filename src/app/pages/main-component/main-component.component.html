@@ -1,5 +1,11 @@
+<div>
+    <label for="restTimeInSeconds">Rest Time(seconds)</label>
+    <input type="number" #restTimeInSeconds>
+    <button (click)="setRestTimeInSeconds(restTimeInSeconds.value)">Set Rest Time</button>
+</div>
 
 <div id="clock" (click)="runClock()"></div>
+Exercise: {{currentExercise}}
 <p>{{counter}}</p>
 
 <form [formGroup]="exerciseForm" (ngSubmit)="addExercise()">
@@ -9,7 +15,7 @@
     <input type="number" formControlName="repetitions">
     <label for="repetititons">Weight</label>
     <input type="number" formControlName="weight">
-    <button type="submit">Add Exercise</button>
+    <button type="submit" [disabled]="exerciseForm.invalid">Add Exercise</button>
 </form>
 
 <p *ngFor="let exercise of exerciseList">Exercise Name: {{exercise.name}} Exercise Repetitions: {{exercise.repetitions}} Exercise Weight: {{exercise.weight}}</p>

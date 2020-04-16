@@ -10,8 +10,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class MainComponentComponent implements OnInit {
   
   counter:number = 0;
+
   exerciseList:Exercise[] = [];
   restTimeinSeconds:number = 60;
+  currentExercise:string = '';
 
   exerciseForm = new FormGroup({
     name: new FormControl('',[Validators.required]),
@@ -26,15 +28,36 @@ export class MainComponentComponent implements OnInit {
   }
 
   runClock = ()=>{
-    do{
-    setInterval(()=>{
-      this.counter++;
-    },1000)
-    }while(this.counter < 60)
+    if(this.exerciseList.length != 0){
+      this.exerciseList.forEach(async (exercise,index) => {
+        this.currentExercise = this.exerciseList[index].name
+        var repetitions = exercise.repetitions;
+        for(let i = 0; i<repetitions; i++){
+          this.countDown();
+        }
+      });
+    }
+    else{
+      alert('Please insert some exercises above.')
+    }
   }
 
   addExercise = () => {
-    this.exerciseList.push(this.exerciseForm.value);
+    if(this.exerciseForm.valid) this.exerciseList.push(this.exerciseForm.value);
+  }
+
+  setRestTimeInSeconds = seconds =>{
+    this.restTimeinSeconds = seconds;
+  }
+
+  countDown = () =>{
+    var intervalId = setInterval(()=>{
+      if(this.counter < this.restTimeinSeconds)this.counter++;
+      else {
+        this.counter = 0; 
+        clearInterval(intervalId);
+      }
+    },1000)
   }
 
 }
