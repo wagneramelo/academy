@@ -14,6 +14,9 @@ export class MainComponentComponent implements OnInit {
   exerciseList:Exercise[] = [];
   restTimeinSeconds:number = 60;
   currentExercise:string = '';
+  exerciseNumber:number = 0;
+  step:number = 0;
+
 
   exerciseForm = new FormGroup({
     name: new FormControl('',[Validators.required]),
@@ -27,13 +30,27 @@ export class MainComponentComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  runClock = ()=>{
+  runClock = ()=>{   
     if(this.exerciseList.length != 0){
-      this.exerciseList.forEach(async (exercise,index) => {
-        this.currentExercise = this.exerciseList[index].name
-        var repetitions = exercise.repetitions;
-        await this.countDown();
-      });
+
+      try{
+      var repetitions = this.exerciseList[this.exerciseNumber].repetitions; 
+      this.currentExercise = this.exerciseList[this.exerciseNumber].name
+      }catch(ex){
+        alert('You are done with your trainer today. Good job!');
+        return;
+      }
+
+      if(this.step < repetitions){
+        this.step++
+      }
+      else{
+        this.exerciseNumber++;
+        this.currentExercise = "Rest before the next exercise."
+        this.step = 0;
+      }           
+      this.countDown();
+
     }
     else{
       alert('Please insert some exercises above.')
