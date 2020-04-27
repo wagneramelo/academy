@@ -1,10 +1,14 @@
 <div>
     <label for="restTimeInSeconds">Rest Time(seconds)</label>
-    <input type="number" #restTimeInSeconds>
-    <button (click)="setRestTimeInSeconds(restTimeInSeconds.value)">Set Rest Time</button>
+    <input placeholder="Rest Time" type="number" #restTimeInSeconds>
+    <button mat-raised-button (click)="setRestTimeInSeconds(restTimeInSeconds.value)">Set Rest Time</button>
 </div>
 
-<div id="clock" (click)="runClock()"></div>
+<div id="clock" (click)="runClock()">
+    <div [ngClass]="{'seconds-container': isClockTriggered}">
+        <div class="seconds"></div>
+    </div>
+</div>
 Exercise: {{currentExercise}}
 <p>{{counter}}</p>
 

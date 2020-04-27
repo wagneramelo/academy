@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { Exercise } from 'src/app/models/exercise';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -10,6 +10,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class MainComponentComponent implements OnInit {
   
   counter:number = 0;
+  isClockTriggered:boolean = false;
+
+  @HostBinding("style.--time-sec") private cssTime: string;
 
   exerciseList:Exercise[] = [];
   restTimeinSeconds:number = 60;
@@ -63,16 +66,20 @@ export class MainComponentComponent implements OnInit {
 
   setRestTimeInSeconds = seconds =>{
     this.restTimeinSeconds = seconds;
+    this.cssTime = seconds + "s";
   }
 
   countDown = () =>{
+    this.isClockTriggered = !this.isClockTriggered;
     var intervalId = setInterval(()=>{
       if(this.counter < this.restTimeinSeconds)this.counter++;
       else {
         this.counter = 0; 
+        this.isClockTriggered = false;
         clearInterval(intervalId);
       }
     },1000)
   }
+
 
 }
