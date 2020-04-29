@@ -44,7 +44,7 @@ export class MainComponentComponent implements OnInit {
         return;
       }
 
-      if(this.step < repetitions){
+      if(this.step <= repetitions){
         this.step++
       }
       else{
@@ -72,7 +72,7 @@ export class MainComponentComponent implements OnInit {
   countDown = () =>{
     this.isClockTriggered = !this.isClockTriggered;
     var intervalId = setInterval(()=>{
-      if(this.counter < this.restTimeinSeconds)this.counter++;
+      if(this.counter < this.restTimeinSeconds - 1)this.counter++;
       else {
         this.counter = 0; 
         this.isClockTriggered = false;

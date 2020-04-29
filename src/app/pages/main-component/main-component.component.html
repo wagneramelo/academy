@@ -1,6 +1,8 @@
 <div>
-    <label for="restTimeInSeconds">Rest Time(seconds)</label>
-    <input placeholder="Rest Time" type="number" #restTimeInSeconds>
+    <mat-form-field>
+        <mat-label for="restTimeInSeconds">Rest Time(seconds)</mat-label>
+        <input matInput placeholder="Rest Time" type="number" #restTimeInSeconds>
+    </mat-form-field>
     <button mat-raised-button (click)="setRestTimeInSeconds(restTimeInSeconds.value)">Set Rest Time</button>
 </div>
 
@@ -13,13 +15,19 @@ Exercise: {{currentExercise}}
 <p>{{counter}}</p>
 
 <form [formGroup]="exerciseForm" (ngSubmit)="addExercise()">
-    <label for="name">Exercise Name</label>
-    <input type="text" formControlName="name">
-    <label for="repetititons">Repetitions</label>
-    <input type="number" formControlName="repetitions">
-    <label for="repetititons">Weight</label>
-    <input type="number" formControlName="weight">
-    <button type="submit" [disabled]="exerciseForm.invalid">Add Exercise</button>
+    <mat-form-field>
+        <mat-label for="name">Exercise Name</mat-label>
+        <input matInput type="text" formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label for="repetititons">Repetitions</mat-label>
+        <input matInput type="number" formControlName="repetitions">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label for="repetititons">Weight</mat-label>
+        <input matInput type="number" formControlName="weight">
+    </mat-form-field>
+    <button mat-raised-button type="submit" [disabled]="exerciseForm.invalid">Add Exercise</button>
 </form>
 
 <p *ngFor="let exercise of exerciseList">Exercise Name: {{exercise.name}} Exercise Repetitions: {{exercise.repetitions}} Exercise Weight: {{exercise.weight}}</p>
